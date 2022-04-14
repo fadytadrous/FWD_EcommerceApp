@@ -16,7 +16,7 @@ public class LoginStepDefinitions {
 
     @When("user enters email and password")
     public void fillLoginForm(){
-        Hooks.driver.findElement(By.id("Email")).sendKeys("first@mail.com");
+            Hooks.driver.findElement(By.id("Email")).sendKeys("first@mail.com");
         Hooks.driver.findElement(By.id("Password")).sendKeys("qwerty1234");
     }
 
