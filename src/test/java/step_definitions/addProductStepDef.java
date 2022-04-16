@@ -23,4 +23,19 @@ public class addProductStepDef {
         Assert.assertEquals(
                 "The product has been added to your shopping cart", notification);
     }
+
+    @When("user adds mobile to wishlist")
+    public void addToWish(){
+        WebElement addBtn = driver.findElements(
+                By.cssSelector("div.add-info>div.buttons>button:nth-child(3)")).get(2);
+        addBtn.click();
+    }
+
+    @Then("product will be added to wishlist")
+    public void updateWishlist(){
+        String notification = driver.findElement(By.cssSelector("p.content")).getText();
+        Assert.assertEquals(
+                "The product has been added to your wishlist", notification);
+
+    }
 }
