@@ -38,4 +38,19 @@ public class addProductStepDef {
                 "The product has been added to your wishlist", notification);
 
     }
+
+    @When("user adds product to compare list")
+    public void compareProduct(){
+        WebElement addBtn = driver.findElements(
+                By.cssSelector("div.add-info>div.buttons>button:nth-child(2)")).get(2);
+        addBtn.click();
+    }
+
+    @Then("product will be added to compare list")
+    public void updateCompareList(){
+        String notification = driver.findElement(By.cssSelector("p.content")).getText();
+        Assert.assertEquals(
+                "The product has been added to your product comparison", notification);
+
+    }
 }
