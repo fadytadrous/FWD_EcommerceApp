@@ -23,10 +23,12 @@ public class createOrderStepDef {
         WebElement firstNameInput = driver.findElement(By.id(
                     "BillingNewAddress_FirstName"));
         if (firstNameInput.isDisplayed()){
-            /*Fill user address */
+            /*Fill user data/address */
             firstNameInput.sendKeys("test");
             driver.findElement(By.id("BillingNewAddress_LastName"))
                     .sendKeys("user");
+            driver.findElement(By.id("BillingNewAddress_Email"))
+                    .clear();
             driver.findElement(By.id("BillingNewAddress_Email"))
                     .sendKeys("test@gmail.com");
 
