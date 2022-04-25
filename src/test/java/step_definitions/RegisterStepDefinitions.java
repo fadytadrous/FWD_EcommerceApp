@@ -6,6 +6,8 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import static step_definitions.Hooks.homePage;
+import static step_definitions.Hooks.registerPage;
 
 
 public class RegisterStepDefinitions {
@@ -13,21 +15,21 @@ public class RegisterStepDefinitions {
 
     @Given("user clicks on register")
     public void clickRegister(){
-        Hooks.driver.findElement(By.className("ico-register")).click();
+        homePage.registerBtn.click();
     }
 
     @When("user enters valid mandatory fields")
     public void fillRegistrationForm(){
-        Hooks.driver.findElement(By.id("FirstName")).sendKeys("first");
-        Hooks.driver.findElement(By.id("LastName")).sendKeys("last");
-        Hooks.driver.findElement(By.id("Email")).sendKeys("first@mail.com");
-        Hooks.driver.findElement(By.id("Password")).sendKeys("qwerty1234");
-        Hooks.driver.findElement(By.id("ConfirmPassword")).sendKeys("qwerty1234");
+        registerPage.firstName.sendKeys("first");
+        registerPage.lastName.sendKeys("last");
+        registerPage.email.sendKeys("first@mail.com");
+        registerPage.password.sendKeys("qwerty1234");
+        registerPage.confirmPassword.sendKeys("qwerty1234");
     }
 
     @And("clicks on register")
     public void clickRegisterBtn(){
-        Hooks.driver.findElement(By.id("register-button")).click();
+        registerPage.registerBtn.click();
     }
 
     @Then("user should register successfully")

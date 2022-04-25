@@ -6,6 +6,9 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 
+import static step_definitions.Hooks.homePage;
+import static step_definitions.Hooks.searchPage;
+
 public class searchProductsStepDefinitions {
 
     @Given("user is logged in")
@@ -20,14 +23,12 @@ public class searchProductsStepDefinitions {
 
     @When("user searches for a product")
     public void searchForProduct(){
-        Hooks.driver.findElement(By.id("small-searchterms")).sendKeys("Nokia");
-        Hooks.driver.findElement(By.cssSelector("form>button")).click();
-
+        homePage.searchBar.sendKeys("Nokia");
+        homePage.searchBtn.click();
     }
 
     @Then("user should see search results")
     public void assertResults(){
-        String res = Hooks.driver.findElement(By.cssSelector("h2>a")).getText();
-        Assert.assertTrue(res.contains("Nokia"));
+        Assert.assertTrue(searchPage.getSearchResults().contains("Nokia"));
     }
 }

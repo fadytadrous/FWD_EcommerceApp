@@ -7,69 +7,52 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-import static step_definitions.Hooks.driver;
+import static step_definitions.Hooks.*;
 
 public class createOrderStepDef {
 
     @And("proceeds to checkout")
     public void checkout(){
-        driver.findElement(By.id("topcartlink")).click();
-        driver.findElement(By.id("termsofservice")).click();
-        driver.findElement(By.id("checkout")).click();
+        homePage.topCart.click();
+        checkoutPage.terms.click();
+        checkoutPage.checkout.click();
     }
 
     @And("fills address details")
     public void setAddress(){
-        WebElement firstNameInput = driver.findElement(By.id(
-                    "BillingNewAddress_FirstName"));
+        WebElement firstNameInput = checkoutPage.firstNameInput;
         if (firstNameInput.isDisplayed()){
             /*Fill user data/address */
             firstNameInput.sendKeys("test");
             driver.findElement(By.id("BillingNewAddress_LastName"))
                     .sendKeys("user");
-            driver.findElement(By.id("BillingNewAddress_Email"))
-                    .clear();
-            driver.findElement(By.id("BillingNewAddress_Email"))
-                    .sendKeys("test@gmail.com");
+            checkoutPage.email.clear();
+            checkoutPage.email.sendKeys("test@gmail.com");
 
-            WebElement country = driver.findElement(By.id("BillingNewAddress_CountryId"));
-            Select countryList = new Select(country);
+
+            Select countryList = new Select(checkoutPage.country);
             countryList.selectByVisibleText("Algeria");
 
-            driver.findElement(By.id("BillingNewAddress_City"))
-                    .sendKeys("city");
-            driver.findElement(By.id("BillingNewAddress_Address1"))
-                    .sendKeys("18 fadel street");
-            driver.findElement(By.id("BillingNewAddress_ZipPostalCode"))
-                    .sendKeys("23423");
-            driver.findElement(By.id("BillingNewAddress_PhoneNumber"))
-                    .sendKeys("0123123334");
+            checkoutPage.city.sendKeys("city");
+            checkoutPage.address.sendKeys("18 fadel street");
+            checkoutPage.zip.sendKeys("23423");
+            checkoutPage.phone.sendKeys("0123123334");
 
         }
 
-        driver.findElement(By.cssSelector(
-                "div#billing-buttons-container>button.new-address-next-step-button"))
-                .click();
-        if(driver.findElement(By.cssSelector("div#shipping-buttons-container>button"))
-                .isDisplayed()){
-            driver.findElement(By.cssSelector("div#shipping-buttons-container>button"))
-                    .click();
+        checkoutPage.newAddress.click();
+        if(checkoutPage.continueShippingA.isDisplayed()){
+            checkoutPage.continueShippingA.click();
         }
-
-        driver.findElement(By.cssSelector("div#shipping-method-buttons-container>button"))
-                .click();
-        driver.findElement(By.cssSelector("div#payment-method-buttons-container>button"))
-                .click();
-        driver.findElement(By.cssSelector("div#payment-info-buttons-container>button"))
-                .click();
-        driver.findElement(By.cssSelector("div#confirm-order-buttons-container>button"))
-                .click();
+        checkoutPage.continueShippingM.click();
+        checkoutPage.continuePaymentM.click();
+        checkoutPage.continuePayment.click();
+        checkoutPage.confirmOrder.click();
     }
 
     @Then("successful Order will be created")
     public void checkOrderCreated(){
-        String msg = driver.findElement(By.
-                        cssSelector("div.order-completed>div.title>strong")).getText();
+        String msg = checkoutPage.msg.getText();
 
         Assert.assertEquals("Your order has been successfully processed!",msg);
     }

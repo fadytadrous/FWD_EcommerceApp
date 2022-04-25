@@ -7,28 +7,25 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import static step_definitions.Hooks.driver;
+import static step_definitions.Hooks.homePage;
 
 public class addProductStepDef {
 
     @When("user adds mobile to cart")
     public void addProduct(){
-        WebElement addBtn = driver.findElements(
-                By.cssSelector("div.add-info>div.buttons>button:nth-child(1)")).get(2);
-        addBtn.click();
+        homePage.addMobileToCart().click();
     }
 
     @Then("product will be added to cart")
     public void CartIsFilled(){
-        String notification = driver.findElement(By.cssSelector("p.content")).getText();
+        String notification = homePage.notification.getText();
         Assert.assertEquals(
                 "The product has been added to your shopping cart", notification);
     }
 
     @When("user adds mobile to wishlist")
     public void addToWish(){
-        WebElement addBtn = driver.findElements(
-                By.cssSelector("div.add-info>div.buttons>button:nth-child(3)")).get(2);
-        addBtn.click();
+        homePage.addMobileToWish().click();
     }
 
     @Then("product will be added to wishlist")
@@ -41,14 +38,12 @@ public class addProductStepDef {
 
     @When("user adds product to compare list")
     public void compareProduct(){
-        WebElement addBtn = driver.findElements(
-                By.cssSelector("div.add-info>div.buttons>button:nth-child(2)")).get(2);
-        addBtn.click();
+        homePage.addMobileToCompare().click();
     }
 
     @Then("product will be added to compare list")
     public void updateCompareList(){
-        String notification = driver.findElement(By.cssSelector("p.content")).getText();
+        String notification = homePage.notification.getText();
         Assert.assertEquals(
                 "The product has been added to your product comparison", notification);
 
