@@ -70,24 +70,30 @@ public class HomePage {
 
         List<WebElement> categories = driver.findElements(
                 By.cssSelector("div.header-menu>ul.notmobile>li"));
-        int randomNum = ThreadLocalRandom.current()
-                .nextInt(0, categories.size());
 
+        /*generating random number from the size of categories*/
+        int randomNum = ThreadLocalRandom.current()
+                .nextInt(0, categories.size()-1);
         WebElement randomCategory = categories.get(randomNum);
 
         action.moveToElement(randomCategory);
-        Boolean subMenu = !randomCategory.findElements(
+        /*Check if there's submenu using isEmpty flag in selenium*/
+        boolean subMenu = !randomCategory.findElements(
                 By.cssSelector("ul.sublist")).isEmpty();
+
         if (subMenu){
             action.moveToElement(randomCategory.findElement(
                     By.cssSelector("ul.sublist>li")));
-            categorySelected = randomCategory.findElement(
-                    By.cssSelector("ul.sublist>li")).getText();
+            /*using innerText since getText gives unexpected result*/
+            categorySelected = randomCategory
+                    .findElement(By.cssSelector("ul.sublist>li>a"))
+                    .getAttribute("innerText");
         }
         else {
             categorySelected = randomCategory.getText();
         }
 
         action.click().build().perform();
+
     }
 }

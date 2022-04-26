@@ -21,7 +21,9 @@ public class selectCatStepDefinitions {
 
     @Then("category results will be shown")
     public void assertCatResults(){
-        Assert.assertEquals(homePage.categorySelected,
-                searchPage.searchResultsTitle.getText());
+        Assert.assertTrue(homePage.categorySelected
+                        .contains(searchPage.searchResultsTitle
+                        .getAttribute("innerText"))
+                        );
     }
 }
