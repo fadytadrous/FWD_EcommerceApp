@@ -6,17 +6,18 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 
 import static step_definitions.Hooks.driver;
+import static step_definitions.Hooks.searchPage;
 
 public class tagsStepDefinitions {
 
     @When("user selects Camera tag")
     public void selectTag(){
-        driver.findElement(By.linkText("camera")).click();
+        searchPage.tagByLinkText("camera").click();
     }
 
     @Then("tag results should be displayed")
     public void assertTagResults(){
-        String tagResults =  driver.findElement(By.cssSelector("div.page-title h1")).getText();
+        String tagResults =  searchPage.searchResultsTitle.getText();
         Assert.assertEquals("Products tagged with 'camera'",tagResults);
     }
 }
