@@ -9,28 +9,21 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
+import static step_definitions.Hooks.homePage;
+
 public class switchCurrenciesStepDefinitions {
 
     @When("user switches currency")
     public void switchCurrency(){
-        WebElement currencySelector = Hooks.driver.findElement(By.id("customerCurrency"));
-        Select currency = new Select(currencySelector);
-        currency.selectByVisibleText("Euro");
+        homePage.switchCurrency("Euro");
     }
 
 
 
     @Then("prices should be shown in that currency")
     public void assertPrices(){
-        List<WebElement> prices = Hooks.driver.findElements(By.cssSelector("div.prices>span"));
-        Boolean allPricesChanged = true;
 
-        for(int i = 0;i<=(prices.size()-1);i++) {
-            if (prices.get(i).getText().contains("$")){
-                allPricesChanged =false;
-            };
-        }
-        Assert.assertTrue(allPricesChanged);
+        Assert.assertTrue(homePage.checkAllPricesChanged());
 
     }
 }

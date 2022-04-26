@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -32,6 +33,9 @@ public class HomePage {
     @FindBy(id = "small-searchterms")
     public WebElement searchBar;
 
+    @FindBy(id = "customerCurrency")
+    public WebElement currencySelector;
+
     public HomePage( WebDriver driver){
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -53,6 +57,22 @@ public class HomePage {
                 .get(2);
     }
 
+    public void switchCurrency(String currencyName){
+        Select currency = new Select(currencySelector);
+        currency.selectByVisibleText(currencyName);
+    }
+
+    public boolean checkAllPricesChanged(){
+        List<WebElement> prices = driver.findElements(By.cssSelector("div.prices>span"));
+        Boolean allPricesChanged = true;
+
+        for(int i = 0;i<=(prices.size()-1);i++) {
+            if (prices.get(i).getText().contains("$")){
+                allPricesChanged =false;
+            };
+        }
+        return allPricesChanged;
+    }
     public void selectShoesCategory(){
         Actions action = new Actions(driver);
 
