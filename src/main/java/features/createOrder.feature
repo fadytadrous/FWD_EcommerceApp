@@ -1,5 +1,6 @@
 Feature: Create successful Order
 
+  @smokeTest
   Scenario: logged user should be able to create successful order
     Given user is logged in
     When user adds mobile to cart

@@ -8,7 +8,8 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = "src\\main\\java\\features",
         glue = "step_definitions",
-        tags = "",
+        /* uncomment tags if you want to run a smoke test*/
+        //tags = "@smokeTest",
         plugin = {"pretty", "html:target/cucumber-reports.html" },
         monochrome = true
 
